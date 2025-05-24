@@ -126,25 +126,44 @@
       if (!dataStore) return;
       const { freq, mags, phs } = dataStore;
 
-      const magTraces = [], phTraces = [];
+      // magnitude traces
+      const magTraces = [];
+      let overallMin = Infinity;
       Sparams.forEach(name => {
         if (document.getElementById('chk'+name).checked) {
-          magTraces.push({ x: freq, y: mags[name], name: `${name} (dB)`, mode: 'lines' });
-          phTraces.push({ x: freq, y: phs[name],  name: `∠${name} (°)`, mode: 'lines' });
+          const y = mags[name];
+          const curMin = Math.min(...y);
+          if (curMin < overallMin) overallMin = curMin;
+          magTraces.push({ x: freq, y, name:`${name} (dB)`, mode:'lines' });
+        }
+      });
+      // phase traces
+      const phTraces = [];
+      Sparams.forEach(name => {
+        if (document.getElementById('chk'+name).checked) {
+          phTraces.push({ x: freq, y: phs[name], name:`∠${name} (°)`, mode:'lines' });
         }
       });
 
-      Plotly.react('magPlot', magTraces, {
+      // magnitude layout: y축 최대 0, 최소 overallMin
+      const magLayout = {
         title: 'Magnitude (dB)',
         xaxis: { title: 'Frequency (GHz)' },
-        yaxis: { title: '|S| (dB)' }
-      });
-
-      Plotly.react('phasePlot', phTraces, {
+        yaxis: {
+          title: '|S| (dB)',
+          autorange: false,
+          range: [ overallMin, 0 ]
+        }
+      };
+      // phase layout (변경 없음)
+      const phLayout = {
         title: 'Phase (°)',
         xaxis: { title: 'Frequency (GHz)' },
         yaxis: { title: '∠S (°)' }
-      });
+      };
+
+      Plotly.react('magPlot', magTraces, magLayout);
+      Plotly.react('phasePlot', phTraces, phLayout);
     }
   </script>
 
