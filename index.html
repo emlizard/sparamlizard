@@ -1,36 +1,70 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>S-Parameter Viewer</title>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <link rel="stylesheet" href="https://emlizard.github.io/sparamlizard/style.css">
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    #controls { margin: 15px 0; }
-    #controls label { margin-right: 10px; }
-    #plots { display: grid; grid-template-columns: 1fr; gap: 30px; }
-    .plot { width: 100%; height: 400px; }
-  </style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>S-Parameter Viewer</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body data-theme="light">
 
-  <h2>S-Parameter(Touchstone) Viewer</h2>
-  <!-- .s2p,.s3p,... 모두 허용 -->
-  <input type="file" id="fileInput" accept=".s2p,.s3p,.s4p,.s5p,.s6p" />
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <h1 class="page-title">S-Parameter Viewer</h1>
+            </div>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                </button>
+        </div>
+    </header>
 
-  <div id="controls" style="display:none;">
-    <strong>Selected S-Parameter:</strong>
-    <span id="paramCheckboxes"></span>
-  </div>
+    <main class="container">
+        <div class="grid grid-2">
+            <div class="card animate-in">
+                <h2 class="card-title">
+                    <span class="card-icon">📁</span>
+                    File & Controls
+                </h2>
+                <div class="input-group">
+                    <label for="fileInput" class="input-label">Touchstone File (.sNp)</label>
+                    <input type="file" id="fileInput" class="input-field" accept=".s2p,.s3p,.s4p,.s5p,.s6p,.s7p,.s8p,.s9p">
+                </div>
+                
+                <div id="controls" style="display:none;" class="calc-sections">
+                    <div class="calc-section">
+                        <label class="input-label">Parameters to Display:</label>
+                        <div id="paramCheckboxes"></div>
+                    </div>
+                </div>
+                 <div id="fileName" class="reference-text" style="margin-top: 15px;">No file selected.</div>
+            </div>
 
-  <div id="plots">
-    <div id="magPlot" class="plot"></div>
-    <div id="phasePlot" class="plot"></div>
-  </div>
+            <div class="card animate-in">
+                 <h2 class="card-title">
+                    <span class="card-icon">💡</span>
+                    Information
+                </h2>
+                <div class="reference-item">
+                    <div class="reference-title">Supported Files</div>
+                    <p class="reference-text">Touchstone format (.s2p, .s3p, .s4p, ...) with MA, DB, or RI data types.</p>
+                </div>
+                 <div class="reference-item">
+                    <div class="reference-title">How to Use</div>
+                    <p class="reference-text">Click the input field above to upload your S-Parameter file. The graphs will be generated automatically.</p>
+                </div>
+            </div>
+        </div>
 
- 
-<script src="https://emlizard.github.io/sparamlizard/script.js"></script>
+        <div id="plots" class="card animate-in" style="display: none; padding: 2rem; margin-top:2rem;">
+             <div id="magPlot" class="plot"></div>
+             <div id="phasePlot" class="plot"></div>
+        </div>
+    </main>
+    
+    <script src="script.js"></script>
 </body>
 </html>
