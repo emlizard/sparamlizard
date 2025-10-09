@@ -11,16 +11,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body data-theme="light">
+<header class="header">
+    <div class="header-content">
+      <div class="logo-section">
+        <a href="https://emlizard.github.io/main-page/" class="back-btn">
+          <i class="fas fa-arrow-left"></i>
+          ← Back to Calculators
+        </a>
+        <div class="page-title">S-Parameter Viewer</div>
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </button>
+    </div>
+  </header>
 
-    <header class="header">
-        <div class="header-content">
-            <div class="logo-section">
-                <h1 class="page-title">S-Parameter Viewer</h1>
-            </div>
-            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-                </button>
-        </div>
-    </header>
 
     <main class="container">
         <div class="grid grid-2">
